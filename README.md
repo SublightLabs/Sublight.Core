@@ -7,4 +7,4 @@ Sublight.Core
 
 * initial commit
 * added async methods for Sublight hash calculation (Sublight.Core.HashUtility class, CalculateHashAsync methods)
-* added prototype version of REST API method for Login
+* added prototype version of REST API method for Login / Logout
