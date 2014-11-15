@@ -7,3 +7,4 @@ Sublight.Core
 
 -initial commit
 -added async methods for Sublight hash calculation (Sublight.Core.HashUtility class, CalculateHashAsync methods)
+
