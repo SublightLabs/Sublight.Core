@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Sublight.Core.Types;
@@ -12,8 +13,12 @@ namespace Sublight.Core
         {
             try
             {
+                var urlQuery = new NameValueCollection();
+                urlQuery.Add("clientId", Globals.API_CLIENT_ID);
+                urlQuery.Add("apiKey", Globals.API_CLIENT_KEY);
+
                 using (var client = new HttpClient())
-                using (var response = await client.SendAsync(new HttpRequestMessage(HttpMethod.Post, GetAbsoluteUrl("login-4"))).ConfigureAwait(false))
+                using (var response = await client.SendAsync(new HttpRequestMessage(HttpMethod.Post, GetAbsoluteUrl("login-4", urlQuery))).ConfigureAwait(false))
                 using (var content = response.Content)
                 {
                     var jsonResponse = await content.ReadAsStringAsync().ConfigureAwait(false);
@@ -42,9 +47,21 @@ namespace Sublight.Core
 
         private const string JSON_FIELD_ERROR = "error";
 
-        private static string GetAbsoluteUrl(string relativeUrl)
+        private static string GetAbsoluteUrl(string relativeUrl, NameValueCollection urlQuery = null)
         {
-            return string.Format("{0}/{1}", Globals.API_URL, relativeUrl);
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("{0}/{1}", Globals.API_URL, relativeUrl);
+
+            if (urlQuery != null && urlQuery.Collection.Count > 0)
+            {
+                sb.Append("?");
+                foreach (var nv in urlQuery.Collection)
+                {
+                    sb.AppendFormat("{0}={1}&", nv.Key, Uri.EscapeUriString(nv.Value.ToString()));
+                }
+            }
+
+            return sb.ToString();
         }
     }
 }

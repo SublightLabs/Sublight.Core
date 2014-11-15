@@ -11,9 +11,18 @@ namespace Sublight.UnitTest
         public void Login()
         {
             var res = RestApi.LogIn().Result;
-            if (res.Value != Guid.Empty && res.ErrorMessage != "No client info.")
+
+            if (Globals.API_CLIENT_ID == "YOUR_CLIENT_ID" &&
+                Globals.API_CLIENT_KEY == "YOUR_CLIENT_KEY")
             {
-                Assert.Fail("Login should fail with 'No client info.' error message.");
+                if (res.ErrorMessage != "ClientNotSupported")
+                {
+                    Assert.Fail("ClientNotSupported error expected");
+                }
+            }
+            else if (res.Value == Guid.Empty)
+            {
+                Assert.Fail(string.Format("Login failed with error: '{0}'", res.ErrorMessage));
             }
         }
     }
