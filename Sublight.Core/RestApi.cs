@@ -83,7 +83,15 @@ namespace Sublight.Core
         private static string GetAbsoluteUrl(string relativeUrl, NameValueCollection urlQuery = null)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("{0}/{1}", Globals.API_URL, relativeUrl);
+
+            if (Globals.IsSandboxMode)
+            {
+                sb.AppendFormat("{0}/{1}", Globals.API_URL_SANDBOX, relativeUrl);
+            }
+            else
+            {
+                sb.AppendFormat("{0}/{1}", Globals.API_URL, relativeUrl);
+            }
 
             if (urlQuery != null && urlQuery.Collection.Count > 0)
             {

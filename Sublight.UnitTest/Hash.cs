@@ -6,7 +6,7 @@ using Sublight.Core.Types;
 namespace Sublight.UnitTest
 {
     [TestClass]
-    public class Hash
+    public class Hash : BaseTest
     {
         [TestMethod]
         public void HashFromDummyFile()

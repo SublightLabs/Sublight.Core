@@ -58,7 +58,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Api.cs" />
+    <Compile Include="ApiProduction.cs" />
+    <Compile Include="ApiSandbox.cs" />
+    <Compile Include="BaseTest.cs" />
     <Compile Include="Hash.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -14,6 +14,12 @@
 
         //internal static string API_URL_HTTPS = "https://www.sublight.me/API/REST/JSON/ServiceSecure.svc";
         public static string API_URL = "http://www.sublight.me/API/REST/JSON/Service.svc";
+        public static string API_URL_SANDBOX = "http://www.sublight.me/API/REST/JSON/ServiceSandbox.svc";
+
+        public static bool IsSandboxMode
+        {
+            get; set;
+        }
 
         internal abstract class Errors
         {
