@@ -10,13 +10,13 @@ With this library you will be able to add following functionalities to your app:
 * rate subtitles and tag them as synchronized / unsynchronized
 * download poster images
 
-Goals:
+## Goals:
 * easy to use
 * lightweight
 * asynchronous operation
 * highly portable to many platforms and devices (PCs, tablets, phones, set-top boxes)
 
-Change Log:
+## Change Log:
 
 2014-11-16
 * GetImdbDetailsByHashOrFileName implementation
