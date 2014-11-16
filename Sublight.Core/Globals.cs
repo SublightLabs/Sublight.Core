@@ -3,12 +3,12 @@
     public abstract class Globals
     {
         /// <summary>
-        /// To get your API key please contact us at: http://www.sublight.me/contact/
+        /// To get your Client ID please contact us at: http://www.sublight.me/contact/
         /// </summary>
         public static string API_CLIENT_ID = "YOUR_CLIENT_ID";
 
         /// <summary>
-        /// To get your API secret please contact us at: http://www.sublight.me/contact/
+        /// To get your Client Key please contact us at: http://www.sublight.me/contact/
         /// </summary>
         public static string API_CLIENT_KEY = "YOUR_CLIENT_KEY";
 
