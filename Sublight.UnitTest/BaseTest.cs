@@ -17,5 +17,7 @@ namespace Sublight.UnitTest
         }
 
         protected static readonly Guid DummyGuid = new Guid("79492A46-F0C2-41C4-BC9A-F79AEEDC1C65");
+        protected const string TEST_USERNAME = "TestUser";
+        protected const string TEST_PASSWORD = "TestPassword";
     }
 }

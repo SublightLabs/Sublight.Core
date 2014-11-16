@@ -11,7 +11,7 @@ namespace Sublight.Core
 {
     public static class RestApi
     {
-        public static async Task<Result<Guid>> LogIn()
+        public static async Task<Result<Guid>> LogIn(string username, string password)
         {
             try
             {
@@ -19,8 +19,13 @@ namespace Sublight.Core
                 urlQuery.Add("clientId", Globals.API_CLIENT_ID);
                 urlQuery.Add("apiKey", Globals.API_CLIENT_KEY);
 
+                var postParams = new NameValueCollection();
+                postParams.Add(JSON_FIELD_USERNAME, username);
+                postParams.Add(JSON_FIELD_PASSWORD, password);
+                var postData = JsonConvert.SerializeObject(postParams.Collection, new KeyValuePairConverter());
+
                 using (var client = new HttpClient())
-                using (var response = await client.SendAsync(new HttpRequestMessage(HttpMethod.Post, GetAbsoluteUrl("login-4", urlQuery))).ConfigureAwait(false))
+                using (var response = await client.SendAsync(new HttpRequestMessage(HttpMethod.Post, GetAbsoluteUrl("login-4", urlQuery)) { Content = new StringContent(postData) }).ConfigureAwait(false))
                 using (var content = response.Content)
                 {
                     var jsonResponse = await content.ReadAsStringAsync().ConfigureAwait(false);
@@ -79,6 +84,8 @@ namespace Sublight.Core
 
         private const string JSON_FIELD_ERROR = "error";
         private const string JSON_FIELD_SESSION = "session";
+        private const string JSON_FIELD_USERNAME = "username";
+        private const string JSON_FIELD_PASSWORD = "password";
 
         private static string GetAbsoluteUrl(string relativeUrl, NameValueCollection urlQuery = null)
         {

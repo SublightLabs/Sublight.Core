@@ -16,7 +16,7 @@ namespace Sublight.UnitTest
         {
             InitializeTestClient();
 
-            var res = RestApi.LogIn().Result;
+            var res = RestApi.LogIn(string.Empty, string.Empty).Result;
 
             if (res.ErrorMessage != "ClientNotSupported")
             {

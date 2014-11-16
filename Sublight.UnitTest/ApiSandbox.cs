@@ -13,12 +13,14 @@ namespace Sublight.UnitTest
             SetSandboxMode(true);
         }
 
+
+
         [TestMethod]
         public void LoginRegisteredClient()
         {
             InitializeTestClient();
 
-            var res = RestApi.LogIn().Result;
+            var res = RestApi.LogIn(TEST_USERNAME, TEST_PASSWORD).Result;
 
             if (res.Status != Result<Guid>.ResultStatus.Success)
             {
@@ -27,7 +29,30 @@ namespace Sublight.UnitTest
 
             if (res.Value != DummyGuid)
             {
-                Assert.Fail(string.Format("Expected session is: {0}", DummyGuid));
+                Assert.Fail("Expected session is: {0}", DummyGuid);
+            }
+        }
+
+        [TestMethod]
+        public void LoginRegisteredClientWrongUsernamePassword()
+        {
+            InitializeTestClient();
+
+            var res = RestApi.LogIn("WrongUsername", "WrongPassword").Result;
+
+            if (res.Status == Result<Guid>.ResultStatus.Success)
+            {
+                Assert.Fail("Method should fail due to invalid credentials");
+            }
+
+            if (res.Value != Guid.Empty)
+            {
+                Assert.Fail("Method should not return session");
+            }
+
+            if (res.ErrorMessage != "WrongUsernameOrPassword")
+            {
+                Assert.Fail("WrongUsernameOrPassword error expected");
             }
         }
 
@@ -37,7 +62,7 @@ namespace Sublight.UnitTest
             Globals.API_CLIENT_ID = "UNKNOWN_CLIENT_ID";
             Globals.API_CLIENT_KEY = "UNKNOWN_CLIENT_KEY";
 
-            var res = RestApi.LogIn().Result;
+            var res = RestApi.LogIn(TEST_USERNAME, TEST_PASSWORD).Result;
 
             if (res.Status == Result<Guid>.ResultStatus.Success)
             {
