@@ -13,8 +13,6 @@ namespace Sublight.UnitTest
             SetSandboxMode(true);
         }
 
-
-
         [TestMethod]
         public void LoginRegisteredClient()
         {
@@ -82,6 +80,30 @@ namespace Sublight.UnitTest
             if (res.ErrorMessage == null || res.ErrorMessage.IndexOf("active session not found", StringComparison.Ordinal) < 0)
             {
                 Assert.Fail("Active session not found error expected");
+            }
+        }
+
+        [TestMethod]
+        public void GetImdbDetailsByHashOrFileName()
+        {
+            InitializeTestClient();
+
+            var res = RestApi.GetImdbDetailsByHashOrFileName(
+                DummyGuid,
+                new VideoDetails()
+                {
+                    Filename = "test-filename.mp4",
+                    Hash = "02000000020000f20e9a677287e0abf20e9a678a",
+                    Size = 1024*128 //in bytes
+                }).Result;
+
+            if (res == null ||
+                res.Status != Result<ImdbDetails>.ResultStatus.Success ||
+                res.Value == null ||
+                res.Value.Id != "tt1234567"
+            )
+            {
+                Assert.Fail("Dummy details for tt1234567 are expected");
             }
         }
     }
